@@ -2,7 +2,7 @@ var source = require('vinyl-source-stream');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
-var reactify = require('reactify');
+//var reactify = require('reactify');
 var watchify = require('watchify');
 var notify = require('gulp-notify');
 var uglify = require('gulp-uglify');
@@ -27,7 +27,7 @@ function buildScript(file, watch) {
     if (watch) {
         bundler = watchify(bundler);
     }
-    bundler.transform(reactify);
+    //bundler.transform(reactify);
     function rebundle() {
         var stream = bundler.bundle();
         return stream.on('error', handleErrors)
