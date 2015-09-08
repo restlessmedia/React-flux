@@ -15,7 +15,7 @@ var List = React.createClass({
     handleChange: function () {
         this.setState(listStore.getState());
     },
-    handleNext: function () {
+    handleClick: function () {
         listActions.getData();
     },
     render: function () {
@@ -24,7 +24,7 @@ var List = React.createClass({
         });
         return (
             <div>
-                <button type="button" onClick={this.handleNext}>Next page</button>
+                <button type="button" onClick={this.handleClick}>Next page</button>
                 <ul>
                     {listItems}
                 </ul>

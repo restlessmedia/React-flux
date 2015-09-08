@@ -29,5 +29,6 @@ function handle(key, params) {
 
 module.exports = {
     dispatch: dispatch,
+    dispatchPending: dispatchPending,
     handle: handle
 };
