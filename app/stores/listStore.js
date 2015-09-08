@@ -1,26 +1,35 @@
-var Minivents = require('minivents');
+var storeUtils = require('../utils/storeUtils');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
+var appConstants = require('../constants/appConstants');
 
 var items = [{}];
-var changeEvent = 'change';
 
-var store = {
+var store = storeUtils.createStore({
     getState: function () {
         return {
             items: items
         }
     }
-};
+});
 
-Minivents(store);
+function persist(response) {
+    items = response.body;
+    store.emitChange();
+}
 
-AppDispatcher.register(function (payload) {
-    switch (payload.eventName) {
-        case 'nextPage':
-            items = payload.items;
-            store.emit('change');
-            break;
+store.appDispatch = AppDispatcher.register(function (payload) {
+    var action = payload.action;
+
+    if (action.response === appConstants.action.PENDING) {
+        store.emitPending();
+    } else {
+        switch (action.actionType) {
+            case appConstants.api.GET_DATA:
+                persist(action.response);
+                break;
+        }
     }
+
     return true;
 });
 

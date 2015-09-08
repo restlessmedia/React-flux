@@ -24,9 +24,9 @@ var List = React.createClass({
         });
         return (
             <div>
-                <button type="button" onclick="{this.handleNext}">Next page</button>
+                <button type="button" onClick={this.handleNext}>Next page</button>
                 <ul>
-                {listItems}
+                    {listItems}
                 </ul>
             </div>
         )

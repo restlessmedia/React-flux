@@ -1,11 +1,12 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 var listApi = require('../api/listApi');
+var actionUtils = require('../utils/actionUtils');
 
-var todoActions = {
-    getData: function(){
-        listApi.getData();
+module.exports = {
+    getData: function (params) {
+        actionUtils.dispatchPending(appConstants.api.GET_DATA, params);
+        listApi.getData().end(
+            actionUtils.handle(appConstants.api.GET_DATA, params)
+        );
     }
 };
-
-module.exports = todoActions;

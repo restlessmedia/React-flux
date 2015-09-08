@@ -1,16 +1,8 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var appConstants = require('../constants/appConstants');
-
-function dispatch(key, response, params) {
-    var payload = {actionType: key, response: response};
-    if (params) {
-        payload.queryParams = params;
-    }
-    AppDispatcher.handleAction(payload);
-}
+var httpUtils = require('../utils/httpUtils');
 
 var getData = function () {
-    dispatch(appConstants.api.GET_DATA, appConstants.request.PENDING);
+    var url = 'json/list.json';
+    return httpUtils.get(url);
 };
 
 module.exports = {
