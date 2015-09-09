@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    font-family: verdana;
+    font-family: verdana, sans-serif;
     font-size: 1em;
 }
 
@@ -22,7 +22,7 @@ body {
 
 .page-enter,
 .page-leave {
-    transition: all .2s ease-in;
+    transition: opacity .3s ease-in,left .5s ease-out;
 }
 
 .page-enter,
