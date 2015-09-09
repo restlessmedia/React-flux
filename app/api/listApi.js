@@ -1,10 +1,16 @@
 var httpUtils = require('../utils/httpUtils');
 
-var getData = function () {
+var getData = function (params) {
     var url = 'json/list.json';
     return httpUtils.get(url);
 };
 
+var get = function (params) {
+    var url = 'json/display.json';
+    return httpUtils.get(url);
+};
+
 module.exports = {
-    getData: getData
+    getData: getData,
+    get: get
 };

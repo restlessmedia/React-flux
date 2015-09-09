@@ -2,32 +2,35 @@ var storeUtils = require('../utils/storeUtils');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 
-var items = [{}];
+var items = [];
+var item;
 
 var store = storeUtils.createStore({
-    getState: function () {
-        return {
-            items: items
-        }
+    getList: function () {
+        return items;
+    },
+    get: function () {
+        return item;
     }
 });
-
-function persist(response) {
-    items = response.body;
-    store.emitChange();
-}
 
 store.appDispatch = AppDispatcher.register(function (payload) {
     var action = payload.action;
 
     if (action.response === appConstants.action.PENDING) {
         store.emitPending();
-    } else {
-        switch (action.actionType) {
-            case appConstants.api.GET_DATA:
-                persist(action.response);
-                break;
-        }
+        return true;
+    }
+
+    switch (action.actionType) {
+        case appConstants.api.GET_DATA:
+            items = action.response.body;
+            store.emitChange();
+            break;
+        case appConstants.api.GET:
+            item = action.response.body;
+            store.emitChange();
+            break;
     }
 
     return true;

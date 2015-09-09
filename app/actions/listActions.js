@@ -8,5 +8,11 @@ module.exports = {
         listApi.getData().end(
             actionUtils.handle(appConstants.api.GET_DATA, params)
         );
+    },
+    get: function (params) {
+        actionUtils.dispatchPending(appConstants.api.GET, params);
+        listApi.get(params).end(
+            actionUtils.handle(appConstants.api.GET, params)
+        );
     }
 };

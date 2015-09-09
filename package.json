@@ -13,6 +13,7 @@
     "gulp-util": "~3.0.6",
     "microevent": "^1.0.0",
     "minivents": "^1.1.7",
+    "rc-css-transition-group": "^2.1.4",
     "react": "~0.13.3",
     "react-async": "^2.1.0",
     "react-router": "^0.13.3",

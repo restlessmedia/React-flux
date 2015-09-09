@@ -5,39 +5,32 @@ var Router = require('react-router');
 
 var Link = Router.Link;
 
-var List = React.createClass({
+var Display = React.createClass({
     getInitialState: function () {
         return {
-            items: listStore.getList()
+            item: listStore.get()
         }
     },
     componentDidMount: function () {
-        listActions.getData();
+        listActions.get();
         listStore.on('change', this.handleChange);
     },
     componentWillUnmount: function () {
         listStore.off('change');
     },
     handleChange: function () {
-        this.setState({
-            items: listStore.getList()
-        });
+        this.setState({item: listStore.get()});
     },
     render: function () {
-        var listItems = this.state.items.map(function (item) {
-            return <li>
-                <Link to="display" params={{id: item.id}}>{item.title}</Link>
-            </li>;
-        });
         return (
             <div>
-                <ul>
-                    {listItems}
-                </ul>
-                <Link to="/">Home</Link>
+                <img src={this.state.item ? this.state.item.src : ''} />
+                <p>{this.state.item ? this.state.item.title : ''}</p>
+                <p>{this.state.item ? this.state.item.description : ''}</p>
+                <Link to="list">List</Link>
             </div>
         )
     }
 });
 
-module.exports = List;
+module.exports = Display;
