@@ -1,0 +1,38 @@
+html {
+    font-size: 12px;
+}
+
+body {
+    font-family: verdana;
+    font-size: 1em;
+}
+
+.page > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+}
+
+.container {
+    width: 400px;
+    border: 1px solid #ccc;
+    height: 400px;
+}
+
+.page-enter,
+.page-leave {
+    transition: all .2s ease-in;
+}
+
+.page-enter,
+.page-leave.page-leave-active {
+    opacity: 0.01;
+    left: -400px;
+}
+
+.page-leave,
+.page-enter.page-enter-active {
+    left: 0;
+    opacity: 1;
+}

@@ -25,7 +25,7 @@ var List = React.createClass({
     },
     render: function () {
         var listItems = this.state.items.map(function (item) {
-            return <li>
+            return <li key={item.id}>
                 <Link to="display" params={{id: item.id}}>{item.title}</Link>
             </li>;
         });

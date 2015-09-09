@@ -12,7 +12,7 @@ var Display = React.createClass({
         }
     },
     componentDidMount: function () {
-        listActions.get();
+        listActions.get(this.props.params.id);
         listStore.on('change', this.handleChange);
     },
     componentWillUnmount: function () {

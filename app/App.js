@@ -1,5 +1,5 @@
 var React = require('react');
-// var CSSTransitionGroup = require('rc-css-transition-group');
+var TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 var Router = require('react-router');
 var List = require('./components/List');
 var Home = require('./components/Home');
@@ -11,10 +11,16 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.func
+    },
     render: function () {
+        var name = this.context.router.getCurrentPath();
         return (
             <div className="container">
-                <RouteHandler/>
+                <TransitionGroup component="div" className="page" transitionName="page">
+                    <RouteHandler key={name}/>
+                </TransitionGroup>
             </div>
         )
     }
