@@ -2,11 +2,11 @@ var storeUtils = require('../utils/storeUtils');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var appConstants = require('../constants/appConstants');
 
-var items;
+var items = {};
 
 var store = storeUtils.createStore({
-    getList: function () {
-        return items;
+    get: function (id) {
+        return items[id];
     }
 });
 
@@ -19,8 +19,8 @@ store.appDispatch = AppDispatcher.register(function (payload) {
     }
 
     switch (action.actionType) {
-        case appConstants.api.GET_DATA:
-            items = action.response.body;
+        case appConstants.api.GET:
+            items[payload.action.params] = action.response.body;
             store.emitChange();
             break;
     }

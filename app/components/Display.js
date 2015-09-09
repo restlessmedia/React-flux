@@ -1,32 +1,38 @@
 var React = require('react');
-var listStore = require('../stores/listStore');
-var listActions = require('../actions/listActions');
-var Router = require('react-router');
-
-var Link = Router.Link;
+var displayStore = require('../stores/displayStore');
+var actions = require('../actions/actions');
+var Link = require('react-router').Link;
 
 var Display = React.createClass({
+    get: function () {
+        return displayStore.get(this.props.params.id)
+    },
     getInitialState: function () {
         return {
-            item: listStore.get()
+            item: this.get()
         }
     },
     componentDidMount: function () {
-        listActions.get(this.props.params.id);
-        listStore.on('change', this.handleChange);
+        if (!this.get()) {
+            actions.get(this.props.params.id);
+        }
+        displayStore.on('change', this.handleChange);
     },
     componentWillUnmount: function () {
-        listStore.off('change');
+        displayStore.off('change');
     },
     handleChange: function () {
-        this.setState({item: listStore.get()});
+        this.setState({item: this.get()});
     },
     render: function () {
+        if (!this.state.item) {
+            return <div></div>;
+        }
         return (
             <div>
-                <img src={this.state.item ? this.state.item.src : ''} />
-                <p>{this.state.item ? this.state.item.title : ''}</p>
-                <p>{this.state.item ? this.state.item.description : ''}</p>
+                <img src={this.state.item.src} />
+                <p>{this.state.item.title}</p>
+                <p>{this.state.item.description}</p>
                 <Link to="list">List</Link>
             </div>
         )

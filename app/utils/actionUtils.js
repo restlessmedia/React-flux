@@ -4,7 +4,7 @@ var appConstants = require('../constants/appConstants');
 var dispatch = function (key, response, params) {
     var payload = {actionType: key, response: response};
     if (params) {
-        payload.queryParams = params;
+        payload.params = params;
     }
     AppDispatcher.handleAction(payload);
 };

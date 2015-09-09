@@ -1,18 +1,19 @@
 var React = require('react');
 var listStore = require('../stores/listStore');
-var listActions = require('../actions/listActions');
-var Router = require('react-router');
-
-var Link = Router.Link;
+var actions = require('../actions/actions');
+var Link = require('react-router').Link;
 
 var List = React.createClass({
+    getList: function () {
+        return listStore.getList();
+    },
     getInitialState: function () {
         return {
-            items: listStore.getList()
+            items: this.getList()
         }
     },
     componentDidMount: function () {
-        listActions.getData();
+        actions.getData();
         listStore.on('change', this.handleChange);
     },
     componentWillUnmount: function () {
@@ -20,12 +21,16 @@ var List = React.createClass({
     },
     handleChange: function () {
         this.setState({
-            items: listStore.getList()
+            items: this.getList()
         });
     },
     render: function () {
+        if (!this.state.items) {
+            return <div></div>;
+        }
+
         var listItems = this.state.items.map(function (item) {
-            return <li key={item.id}>
+            return <li>
                 <Link to="display" params={{id: item.id}}>{item.title}</Link>
             </li>;
         });
