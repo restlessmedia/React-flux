@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'production';
+
 var source = require('vinyl-source-stream');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
@@ -6,6 +8,7 @@ var watchify = require('watchify');
 var notify = require('gulp-notify');
 var uglify = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
+var sass = require('gulp-sass');
 
 var scriptsDir = './app';
 var buildDir = './dist';
@@ -43,12 +46,20 @@ function buildScript(file, watch) {
     return rebundle();
 }
 
+gulp.task('sass', function () {
+    return gulp.src('./sass/**/*.scss')
+        .pipe(sass({outputStyle: 'compressed'}).on('error', handleErrors))
+        .pipe(gulp.dest(buildDir + '/css'));
+});
+
+gulp.task('sass:watch', function () {
+    gulp.watch('./sass/**/*.scss', ['sass']);
+});
+
 gulp.task('build', function () {
-    process.env.NODE_ENV = 'production';
     return buildScript('App.js', false);
 });
 
-gulp.task('default', ['build'], function () {
-    process.env.NODE_ENV = 'production';
+gulp.task('default', ['sass:watch'], function () {
     return buildScript('App.js', true);
 });

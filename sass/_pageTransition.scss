@@ -1,0 +1,18 @@
+
+
+.page-enter,
+.page-leave {
+  transition: opacity .4s ease-in, left .2s ease-out;
+}
+
+.page-enter,
+.page-leave.page-leave-active {
+  opacity: 0.01;
+  left: -400px;
+}
+
+.page-leave,
+.page-enter.page-enter-active {
+  left: 0;
+  opacity: 1;
+}

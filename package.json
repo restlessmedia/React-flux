@@ -9,6 +9,7 @@
     "flux": "^2.1.1",
     "gulp": "~3.9.0",
     "gulp-notify": "~2.2.0",
+    "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.4.0",
     "gulp-util": "~3.0.6",
     "microevent": "^1.0.0",

@@ -10,7 +10,7 @@ var store = storeUtils.createStore({
     }
 });
 
-store.appDispatch = AppDispatcher.register(function (payload) {
+AppDispatcher.register(function (payload) {
     var action = payload.action;
 
     if (action.response === appConstants.action.PENDING) {

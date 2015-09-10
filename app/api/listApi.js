@@ -6,11 +6,17 @@ var getData = function (params) {
 };
 
 var get = function (params) {
-    var url = 'json/display.json';
+    var url = 'json/display.json?id=' + params;
+    return httpUtils.get(url);
+};
+
+var search = function (params) {
+    var url = 'json/list.json?author=' + params.author + '&text=' + params.text;
     return httpUtils.get(url);
 };
 
 module.exports = {
     getData: getData,
-    get: get
+    get: get,
+    search: search
 };

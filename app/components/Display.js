@@ -4,16 +4,16 @@ var actions = require('../actions/actions');
 var Link = require('react-router').Link;
 
 var Display = React.createClass({
-    get: function () {
-        return displayStore.get(this.props.params.id)
-    },
-    getInitialState: function () {
+    getState: function () {
         return {
-            item: this.get()
+            item: displayStore.get(this.props.params.id)
         }
     },
+    getInitialState: function () {
+        return this.getState();
+    },
     componentDidMount: function () {
-        if (!this.get()) {
+        if (!this.getState().item) {
             actions.get(this.props.params.id);
         }
         displayStore.on('change', this.handleChange);
@@ -22,23 +22,23 @@ var Display = React.createClass({
         displayStore.off('change');
     },
     handleChange: function () {
-        this.setState({item: this.get()});
+        this.setState(this.getState());
     },
     renderItem: function () {
         if (!this.state.item)
             return;
 
         return <div key="data">
-            <img src={this.state.item.src} />
+            <img src={this.state.item.src} width="50" height="50" />
             <p>{this.state.item.title}</p>
             <p>{this.state.item.description}</p>
-            <Link to="list">List</Link>
         </div>;
     },
     render: function () {
         return (
             <div>
                 {this.renderItem()}
+                <Link to="list">Back</Link>
             </div>
         );
     }

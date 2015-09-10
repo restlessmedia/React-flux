@@ -1,0 +1,22 @@
+html {
+  font-size: 12px;
+}
+
+body {
+  font-family: verdana, sans-serif;
+  font-size: 1em;
+}
+
+.container {
+  position: relative;
+  width: 400px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+@import "list";
+@import "nav";
+@import "pageTransition";
+@import "header";
+@import "content";
+@import "footer";

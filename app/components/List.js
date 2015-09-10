@@ -4,13 +4,13 @@ var actions = require('../actions/actions');
 var Link = require('react-router').Link;
 
 var List = React.createClass({
-    getList: function () {
-        return listStore.getList();
+    getState: function () {
+        return {
+            items: listStore.getList()
+        }
     },
     getInitialState: function () {
-        return {
-            items: this.getList()
-        }
+        return this.getState();
     },
     componentDidMount: function () {
         actions.getData();
@@ -20,9 +20,7 @@ var List = React.createClass({
         listStore.off('change');
     },
     handleChange: function () {
-        this.setState({
-            items: this.getList()
-        });
+        this.setState(this.getState());
     },
     renderItems: function () {
         return this.state.items.map(function (item) {
@@ -41,7 +39,7 @@ var List = React.createClass({
         return (
             <div>
                 {this.renderList()}
-                <Link to="/">Home</Link>
+                <Link to="/">Back</Link>
             </div>
         )
     }
