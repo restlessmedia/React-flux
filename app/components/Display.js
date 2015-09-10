@@ -24,18 +24,23 @@ var Display = React.createClass({
     handleChange: function () {
         this.setState({item: this.get()});
     },
+    renderItem: function () {
+        if (!this.state.item)
+            return;
+
+        return <div key="data">
+            <img src={this.state.item.src} />
+            <p>{this.state.item.title}</p>
+            <p>{this.state.item.description}</p>
+            <Link to="list">List</Link>
+        </div>;
+    },
     render: function () {
-        if (!this.state.item) {
-            return <div></div>;
-        }
         return (
             <div>
-                <img src={this.state.item.src} />
-                <p>{this.state.item.title}</p>
-                <p>{this.state.item.description}</p>
-                <Link to="list">List</Link>
+                {this.renderItem()}
             </div>
-        )
+        );
     }
 });
 

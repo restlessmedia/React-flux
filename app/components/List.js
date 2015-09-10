@@ -24,21 +24,23 @@ var List = React.createClass({
             items: this.getList()
         });
     },
-    render: function () {
-        if (!this.state.items) {
-            return <div></div>;
-        }
-
-        var listItems = this.state.items.map(function (item) {
+    renderItems: function () {
+        return this.state.items.map(function (item) {
             return <li>
                 <Link to="display" params={{id: item.id}}>{item.title}</Link>
             </li>;
         });
+    },
+    renderList: function () {
+        if (!this.state.items)
+            return;
+
+        return <ul>{this.renderItems()}</ul>;
+    },
+    render: function () {
         return (
             <div>
-                <ul>
-                    {listItems}
-                </ul>
+                {this.renderList()}
                 <Link to="/">Home</Link>
             </div>
         )
