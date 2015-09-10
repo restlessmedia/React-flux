@@ -57,9 +57,9 @@ gulp.task('sass:watch', function () {
 });
 
 gulp.task('build', function () {
-    return buildScript('App.js', false);
+    return buildScript('Main.js', false);
 });
 
 gulp.task('default', ['sass:watch'], function () {
-    return buildScript('App.js', true);
+    return buildScript('Main.js', true);
 });

@@ -1,6 +1,7 @@
 var React = require('react');
 var SearchForm = require('../components/SearchForm');
 var listStore = require('../stores/listStore');
+var Router = require('../router/Router');
 
 var Home = React.createClass({
     componentDidMount: function () {
@@ -10,7 +11,7 @@ var Home = React.createClass({
         listStore.off('change');
     },
     handleChange: function () {
-        // this.context.router.transitionTo('list');
+        Router.transitionTo('list');
     },
     render: function () {
         return (
