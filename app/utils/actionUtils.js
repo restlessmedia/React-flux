@@ -13,22 +13,21 @@ var dispatchPending = function (key, params) {
     dispatch(key, appConstants.action.PENDING, params);
 };
 
-function handle(key, params) {
+var dispatchHandler = function (key, params) {
     return function (err, res) {
         if (err && err.timeout === timeout) {
-            dispatch(key, appConstants.action.TIMEOUT, params);
+            res = appConstants.action.TIMEOUT;
         } else if (res.status === 400) {
-            dispatch(key, appConstants.action.UNAUTHORISED, params);
+            res = appConstants.action.UNAUTHORISED;
         } else if (!res.ok) {
-            dispatch(key, appConstants.action.ERROR, params);
-        } else {
-            dispatch(key, res, params);
+            res = appConstants.action.ERROR;
         }
+        dispatch(key, res, params);
     };
-}
+};
 
 module.exports = {
     dispatch: dispatch,
     dispatchPending: dispatchPending,
-    handle: handle
+    dispatchHandler: dispatchHandler
 };

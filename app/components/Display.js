@@ -26,7 +26,7 @@ var Display = React.createClass({
     },
     renderItem: function () {
         if (!this.state.item)
-            return;
+            return <div>Loading...</div>;
 
         return <div key="data">
             <img src={this.state.item.src} width="50" height="50" />

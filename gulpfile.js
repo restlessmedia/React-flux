@@ -35,7 +35,7 @@ function buildScript(file, watch) {
         return stream.on('error', handleErrors)
             .pipe(source(file))
             .pipe(buffer())
-            .pipe(uglify())
+            //.pipe(uglify())
             .pipe(gulp.dest(buildDir + '/'));
     }
 

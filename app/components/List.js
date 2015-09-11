@@ -4,13 +4,11 @@ var actions = require('../actions/actions');
 var Link = require('react-router').Link;
 
 var List = React.createClass({
-    getState: function () {
-        return {
-            items: listStore.getList()
-        }
-    },
     getInitialState: function () {
-        return this.getState();
+        return {
+            items: listStore.getList(),
+            loading: false
+        }
     },
     componentDidMount: function () {
         actions.getData(this.props.params);
@@ -20,7 +18,7 @@ var List = React.createClass({
         listStore.off('change');
     },
     handleChange: function () {
-        this.setState(this.getState());
+        this.setState(this.getInitialState());
     },
     renderItems: function () {
         return this.state.items.map(function (item) {
@@ -31,7 +29,8 @@ var List = React.createClass({
     },
     renderList: function () {
         if (!this.state.items)
-            return;
+            return <div>Loading...</div>;
+
         return <ul>{this.renderItems()}</ul>;
     },
     render: function () {
