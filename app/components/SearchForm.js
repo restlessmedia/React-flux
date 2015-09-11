@@ -1,5 +1,4 @@
 var React = require('react');
-var actions = require('../actions/actions');
 
 var SearchForm = React.createClass({
     getParams: function () {
@@ -12,7 +11,7 @@ var SearchForm = React.createClass({
     },
     handleSubmit: function (e) {
         e.preventDefault();
-        actions.search(this.getParams());
+        this.props.onSubmit(this.getParams());
     },
     render: function () {
         return (

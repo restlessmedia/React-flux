@@ -1,5 +1,4 @@
 var Minivents = require('minivents');
-
 var changeEvent = 'change';
 var pendingEvent = 'pending';
 

@@ -1,7 +1,8 @@
 var React = require('react');
 var SearchForm = require('../components/SearchForm');
 var listStore = require('../stores/listStore');
-var Router = require('../router/Router');
+var router = require('../router/router');
+var actions = require('../actions/actions');
 
 var Home = React.createClass({
     componentDidMount: function () {
@@ -11,13 +12,17 @@ var Home = React.createClass({
         listStore.off('change');
     },
     handleChange: function () {
-        Router.transitionTo('list');
+        router.transitionTo('list');
+    },
+    handleSubmit: function(params) {
+        actions.search(params);
+        //router.transitionTo('list');
     },
     render: function () {
         return (
             <div>
                 <div>Home</div>
-                <SearchForm />
+                <SearchForm onSubmit={this.handleSubmit} />
             </div>
         )
     }

@@ -7,8 +7,12 @@ var Header = React.createClass({
         return (
             <div className="header">
                 <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="list">List</Link></li>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="list">List</Link>
+                    </li>
                 </ul>
             </div>
         )

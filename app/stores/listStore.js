@@ -21,13 +21,15 @@ AppDispatcher.register(function (payload) {
     switch (action.actionType) {
         case appConstants.api.GET_DATA:
             items = action.response.body;
-            store.emitChange();
             break;
         case appConstants.api.SEARCH:
             items = action.response.body;
-            store.emitChange();
             break;
+        default:
+            return true;
     }
+
+    store.emitChange();
 
     return true;
 });

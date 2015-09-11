@@ -10,7 +10,7 @@ var Route = Router.Route;
 module.exports = (
     <Route name="app" path="/" handler={App}>
         <DefaultRoute handler={Home}/>
-        <Route name="list" path="/list" handler={List}/>
-        <Route name="display" path="/display/?:id" handler={Display}/>
+        <Route name="list" path="/list/:page?" handler={List}/>
+        <Route name="display" path="/display/:id" handler={Display}/>
     </Route>
 );

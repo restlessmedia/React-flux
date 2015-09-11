@@ -13,7 +13,7 @@ var List = React.createClass({
         return this.getState();
     },
     componentDidMount: function () {
-        actions.getData();
+        actions.getData(this.props.params);
         listStore.on('change', this.handleChange);
     },
     componentWillUnmount: function () {
@@ -32,14 +32,15 @@ var List = React.createClass({
     renderList: function () {
         if (!this.state.items)
             return;
-
         return <ul>{this.renderItems()}</ul>;
     },
     render: function () {
         return (
             <div>
                 {this.renderList()}
-                <Link to="/">Back</Link>
+                <Link to="list" params={{page: 1}}>Previous</Link>
+                |
+                <Link to="list" params={{page: 2}}>Next</Link>
             </div>
         )
     }

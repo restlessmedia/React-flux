@@ -38,7 +38,7 @@ var Display = React.createClass({
         return (
             <div>
                 {this.renderItem()}
-                <Link to="list">Back</Link>
+                <Link to="list" params={{page: 1}}>Back</Link>
             </div>
         );
     }
