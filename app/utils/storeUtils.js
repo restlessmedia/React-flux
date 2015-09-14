@@ -2,16 +2,27 @@ var Minivents = require('minivents');
 var changeEvent = 'change';
 var pendingEvent = 'pending';
 
+var Store = function (obj) {
+    if (obj) {
+        for (var member in obj) {
+            if (obj.hasOwnProperty(member)) {
+                this[member] = obj[member];
+            }
+        }
+    }
+    Minivents(this);
+};
+
+Store.prototype.emitChange = function () {
+    this.emit(changeEvent);
+};
+
+Store.prototype.emitPending = function () {
+    this.emit(pendingEvent);
+};
+
 var createStore = function (obj) {
-    var store = obj || {};
-    Minivents(store);
-    store.emitChange = function () {
-        this.emit(changeEvent);
-    };
-    store.emitPending = function () {
-        this.emit(pendingEvent);
-    };
-    return store;
+    return new Store(obj);
 };
 
 module.exports = {

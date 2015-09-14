@@ -6,7 +6,8 @@ var Link = require('react-router').Link;
 var Display = React.createClass({
     getState: function () {
         return {
-            item: displayStore.get(this.props.params.id)
+            item: displayStore.get(this.props.params.id),
+            loading: false
         }
     },
     getInitialState: function () {
@@ -16,18 +17,24 @@ var Display = React.createClass({
         if (!this.getState().item) {
             actions.get(this.props.params.id);
         }
+    },
+    componentWillMount: function () {
         displayStore.on('change', this.handleChange);
+        displayStore.on('pending', this.handlePending);
     },
     componentWillUnmount: function () {
         displayStore.off('change');
+        displayStore.off('pending');
+    },
+    handlePending: function () {
+        this.setState({
+            loading: true
+        });
     },
     handleChange: function () {
         this.setState(this.getState());
     },
     renderItem: function () {
-        if (!this.state.item)
-            return <div>Loading...</div>;
-
         return <div key="data">
             <img src={this.state.item.src} width="50" height="50" />
             <p>{this.state.item.title}</p>
@@ -35,6 +42,12 @@ var Display = React.createClass({
         </div>;
     },
     render: function () {
+        if (this.state.loading)
+            return <div>Loading...</div>;
+
+        if (!this.state.item)
+            return <div>No data</div>;
+
         return (
             <div>
                 {this.renderItem()}

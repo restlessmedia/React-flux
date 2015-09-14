@@ -20,8 +20,6 @@ AppDispatcher.register(function (payload) {
 
     switch (action.actionType) {
         case appConstants.api.GET_DATA:
-            items = action.response.body;
-            break;
         case appConstants.api.SEARCH:
             items = action.response.body;
             break;

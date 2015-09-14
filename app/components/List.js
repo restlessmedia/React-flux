@@ -11,14 +11,28 @@ var List = React.createClass({
         }
     },
     componentDidMount: function () {
-        actions.getData(this.props.params);
+        if (!this.state.items) {
+            actions.getData(this.props.params);
+        }
+    },
+    componentWillMount: function () {
         listStore.on('change', this.handleChange);
+        listStore.on('pending', this.handlePending);
     },
     componentWillUnmount: function () {
         listStore.off('change');
+        listStore.off('pending');
+    },
+    handlePending: function () {
+        this.setState({
+            loading: true
+        });
     },
     handleChange: function () {
-        this.setState(this.getInitialState());
+        this.setState({
+            items: listStore.getList(),
+            loading: false
+        });
     },
     renderItems: function () {
         return this.state.items.map(function (item) {
@@ -28,12 +42,15 @@ var List = React.createClass({
         });
     },
     renderList: function () {
-        if (!this.state.items)
-            return <div>Loading...</div>;
-
         return <ul>{this.renderItems()}</ul>;
     },
     render: function () {
+        if (this.state.loading)
+            return <div>Loading...</div>;
+
+        if (!this.state.items)
+            return <div>No data</div>;
+
         return (
             <div>
                 {this.renderList()}

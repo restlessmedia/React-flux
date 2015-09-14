@@ -14,9 +14,9 @@ var Home = React.createClass({
     handleChange: function () {
         router.transitionTo('list');
     },
-    handleSubmit: function(params) {
+    handleSubmit: function (params) {
         actions.search(params);
-        //router.transitionTo('list');
+        router.transitionTo('list', {page: 1});
     },
     render: function () {
         return (
