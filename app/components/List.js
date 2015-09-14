@@ -44,6 +44,13 @@ var List = React.createClass({
     renderList: function () {
         return <ul>{this.renderItems()}</ul>;
     },
+	renderInfo: function(){
+		if(this.props.params.text){
+			return <p>Searching for '{this.props.params.text}' for author '{this.props.params.author}'</p>
+		}else{
+			return <div />
+		}
+	}, 
     render: function () {
         if (this.state.loading)
             return <div>Loading...</div>;
@@ -53,6 +60,7 @@ var List = React.createClass({
 
         return (
             <div>
+				{this.renderInfo()}
                 {this.renderList()}
                 <Link to="list" params={{page: 1}}>Previous</Link>
                 |
